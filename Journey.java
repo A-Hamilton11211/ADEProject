@@ -3,22 +3,39 @@ public class Journey implements Comparable<Journey>
 	private String regNum;
     private String driverName;
     private String destName;
-    private int dist;
+    private double dist;
     private int passNum;
+    private double cost;
 
     /**
-     * Set up the contact details. All details are trimmed to remove
-     * trailing white space.
-     * @param name The name.
-     * @param hoursWorked The hours worked
+     * Set up the journey class
+     * @param regNum The registration number
+     * @param driverName The name of the driver
+     * @param destName The destination name
+     * @param dist The distance to the destination
+     * @param passNum The number of passengers
+     * @param cost The cost of the journey (computed during instance creation)
      */
-    public Journey(String regNum, String driverName, String destName, int dist, int passNum)
+    public Journey(String regNum, String driverName, String destName, double dist, int passNum) throws ImpossibleDistException, WrongPassException
     {   
         this.regNum =regNum.trim();
         this.driverName = driverName.trim();
         this.destName = destName.trim();
-        this.dist = dist;
-        this.passNum = passNum;
+        if (dist > 0) {
+        	this.dist = dist;
+        } else {
+        	throw new ImpossibleDistException(dist);
+        }
+        if (passNum <= 3 && passNum > 0){
+        	this.passNum = passNum;
+        	this.cost = 1.80 + (1.00 * dist);
+        } else if (passNum > 3 && passNum < 6){
+        	this.passNum = passNum;
+        	this.cost = 1.80 + (1.50 * dist);
+        } else {
+        	throw new WrongPassException(passNum);
+        }
+       
     }
     
     /**
@@ -47,7 +64,7 @@ public class Journey implements Comparable<Journey>
     /**
      * @return The Distance
      */
-    public int getDist()
+    public double getDist()
     {
         return dist;
     }
@@ -59,6 +76,14 @@ public class Journey implements Comparable<Journey>
     {
         return passNum;
     }
+    /**
+     * @return The cost
+     */
+    public double getCost()
+    {
+    	return cost;
+    }
+    
 
     
     /**
@@ -74,7 +99,8 @@ public class Journey implements Comparable<Journey>
             		driverName.equals(otherJourney.getDriver()) &&
             		destName.equals(otherJourney.getDest()) &&
             		dist == (otherJourney.getDist()) &&
-            		passNum == (otherJourney.getPass());
+            		passNum == (otherJourney.getPass())&&
+            		cost == (otherJourney.getCost());
         }
         else {
             return false;
@@ -101,8 +127,8 @@ public class Journey implements Comparable<Journey>
     public String toString()
     {
         return String.format("%-5s", regNum ) + String.format("%-20s", driverName) +
-                 String.format("%5s", destName ) + String.format("%10d", dist ) +
-                 String.format("%15s", passNum );
+                 String.format("%5s", destName ) + String.format("%10$.2f miles", dist ) +
+                 String.format("%15$d", passNum ) + String.format("%20$.2f", cost);
     }
 
 }
