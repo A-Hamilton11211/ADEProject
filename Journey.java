@@ -126,9 +126,9 @@ public class Journey implements Comparable<Journey>
      */
     public String toString()
     {
-        return String.format("%-5s", regNum ) + String.format("%-20s", driverName) +
-                 String.format("%5s", destName ) + String.format("%10$.2f miles", dist ) +
-                 String.format("%15$d", passNum ) + String.format("%20$.2f", cost);
+        return String.format("%s ", regNum ) + String.format(" %s ", driverName) +
+                 String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
+                 String.format(" %d ", passNum ) + String.format(" %.2f", cost);
     }
 
 }
