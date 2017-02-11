@@ -1,14 +1,8 @@
-public class Journeys2016 {
-	
-	private String destination;
+public class Journeys2016 extends AbstractJourney{
 	
 	public Journeys2016(String destination)
 	{
-		this.destination = destination;
+		super(destination);
 	}
 	
-	public String getDest() {
-		return destination;
-	}
-
 }
