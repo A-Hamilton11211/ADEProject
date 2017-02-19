@@ -18,7 +18,16 @@ public class Journey implements Comparable<Journey>
      */
     public Journey(String regNum, String driverName, String destName, double dist, int passNum) throws ImpossibleDistException, WrongPassException
     {   
-        this.regNum =regNum.trim();
+    	try {
+    		int regTest = Integer.parseInt(regNum.substring(3, regNum.length()));
+    		if (regNum.substring(0,3).contains("AFR") && regTest != 0){
+    			this.regNum =regNum.trim();
+    		} else {
+    			System.err.println("Improper Registration Format");
+    		}
+    	} catch (NumberFormatException e){
+    		System.err.println("Improper Registration Format: No Numbers");
+    	}
         this.driverName = driverName.trim();
         this.destName = destName.trim();
         if (dist > 0) {
@@ -98,9 +107,7 @@ public class Journey implements Comparable<Journey>
             return regNum.equals(otherJourney.getReg()) &&
             		driverName.equals(otherJourney.getDriver()) &&
             		destName.equals(otherJourney.getDest()) &&
-            		dist == (otherJourney.getDist()) &&
-            		passNum == (otherJourney.getPass())&&
-            		cost == (otherJourney.getCost());
+            		passNum == (otherJourney.getPass());
         }
         else {
             return false;
