@@ -38,7 +38,7 @@ public class Journey implements Comparable<Journey>
         if (passNum <= 3 && passNum > 0){
         	this.passNum = passNum;
         	this.cost = 1.80 + (1.00 * dist);
-        } else if (passNum > 3 && passNum < 6){
+        } else if (passNum > 3 && passNum <= 6){
         	this.passNum = passNum;
         	this.cost = 1.80 + (1.50 * dist);
         } else {
@@ -131,11 +131,18 @@ public class Journey implements Comparable<Journey>
     /**
      * @return A  string containing all details.
      */
+    
     public String toString()
     {
         return String.format("%s ", regNum ) + String.format(" %s ", driverName) +
                  String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
                  String.format(" %d ", passNum ) + String.format(" %.2f", cost);
+    }
+    
+    public String jlistString()
+    {
+    	return String.format("%s ", regNum ) +  String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
+                String.format(" %d Passengers  ", passNum ) + String.format("  £%.2f", cost);
     }
 
 }

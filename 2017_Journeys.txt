@@ -1,24 +1,24 @@
-AFR22 HCD,Edinburgh Gin Distillery,6
-AFR09 KWO,Thunder dome,1
-AFR46 KIM,Gilmerton Cove,3
-AFR66 AHW,Royal Yacht Britannia,2
-AFR11 KKO,Waverley Station,5
-AFR83 DMS,St Giles Cathedral,4
-AFR75 KKW,New Lanark Visitor Centre,1
-AFR37 HAH,Edinburgh Gin Distillery,5
-AFR96 LTK,Edinburgh Airport,2
-AFR14 DMB,Edinburgh zoo,6
-AFR80 OFH,Craigmillar Castle,3
-AFR37 HAH,Gilmerton Cove,4
-AFR22 AZM,Bannockburn Heritage Centre,4
-AFR32 UEC,Edinburgh Castle,5
-AFR22 HCD,Thunder dome,2
-AFR75 KKW,Royal Botanic Garden,6
-AFR78 KJM,Edinburgh Gin Distillery,1
-AFR50 RNK,Gilmerton Cove,3
-AFR13 BBF,Edinburgh Castle,2
-AFR32 UEC,Edinburgh Airport,5
-AFR16 ZNW,Royal Yacht Britannia,3
-AFR22 AZM,Waverley Station,6
-AFR34 UPM,St Giles Cathedral,2
-AFR50 RNK,New Lanark Visitor Centre,5
+AFR22,Edinburgh Gin Distillery,6
+AFR09,Thunder dome,1
+AFR46,Gilmerton Cove,3
+AFR66,Royal Yacht Britannia,2
+AFR11,Waverley Station,5
+AFR83,St Giles Cathedral,4
+AFR75,New Lanark Visitor Centre,1
+AFR37,Edinburgh Gin Distillery,5
+AFR96,Edinburgh Airport,2
+AFR14,Edinburgh zoo,6
+AFR80,Craigmillar Castle,3
+AFR37,Gilmerton Cove,4
+AFR22,Bannockburn Heritage Centre,4
+AFR32,Edinburgh Castle,5
+AFR22,Thunder dome,2
+AFR75,Royal Botanic Garden,6
+AFR78,Edinburgh Gin Distillery,1
+AFR50,Gilmerton Cove,3
+AFR13,Edinburgh Castle,2
+AFR32,Edinburgh Airport,5
+AFR16,Royal Yacht Britannia,3
+AFR22,Waverley Station,6
+AFR34,St Giles Cathedral,2
+AFR50,New Lanark Visitor Centre,5

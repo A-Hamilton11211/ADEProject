@@ -3,10 +3,9 @@ import java.io.*;
 
 public class JourneyList
 {
-	private TreeSet<Journey> journeyList;
 	
-    public JourneyList() {
-		journeyList = new TreeSet<Journey>(new expenseComparator());
+    public TreeSet<Journey> journeyListCreator() {
+		TreeSet<Journey> journeyList = new TreeSet<Journey>(new expenseComparator());
 		BufferedReader buff2017 = null;
 		BufferedReader destbuff = null;
 		BufferedReader taxibuff = null;
@@ -59,15 +58,34 @@ public class JourneyList
         	}
 		
 		}
+		return journeyList;
 	}
     
-    public String printOutput() {
-    	String fiveMost = "";
-    	String fiveLeast = "";
-    	JourneyList jlist = new JourneyList();
-    	//just need to iterate over the expenseComparator sorted list of journeys to find
-    	// the 5 most expensive journeys and the 5 least expensive journeys
-    	return fiveMost;
+    public void writeToFile(String path) throws IOException {
+    	TreeSet<Journey> jlist = journeyListCreator();
+    	FileWriter write = new FileWriter(path, false);
+    	PrintWriter print_line = new PrintWriter(write);
+    	print_line.printf("%s" + "%n", "TOP 5 MOST PROFITABLE JOURNEYS OF 2017:");
+    	for (int i = 0; i < 5; i++){
+    		Journey current = jlist.first();
+    		print_line.printf("%s" + "%n", current.jlistString());
+    		jlist.remove(current);
+    	}
+    	print_line.println();
+    	print_line.printf("%s" + "%n", "TOP 5 LEAST PROFITABLE JOURNEYS OF 2017:");
+    	for (int i = 0; i < 5; i++){
+    		Journey current = jlist.last();
+    		print_line.printf("%s" + "%n", current.jlistString());
+    		jlist.remove(current);
+    	}
+    	print_line.close();
+    	
+    }
+    
+    public static void main(String[] args) throws IOException
+    {
+    	JourneyList test = new JourneyList();
+    	test.writeToFile("/home/ajh/test.txt");
     }
     
 }
