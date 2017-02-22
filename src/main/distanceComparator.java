@@ -1,6 +1,8 @@
 package src.main;
+
 import java.util.Comparator;
 public class distanceComparator implements Comparator<Journey> {
+	//comparator class for sorting journey object
 	public int compare(Journey s1, Journey s2){
 		double t1 = s1.getDist();
 		double t2 = s2.getDist();
