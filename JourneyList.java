@@ -1,3 +1,4 @@
+package src.main;
 import java.util.*;
 import java.io.*;
 
@@ -8,50 +9,61 @@ public class JourneyList
 	/**
      * @return TreeSet<Journey>(expenseComparator)
      * This method creates a TreeSet of Journeys sorted based on the expenseComparator().
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
      */ 
-    public TreeSet<Journey> journeyListCreator() {
-		// Create the new TreeSet<Journey>(new expenseComparator())
+    public TreeSet<Journey> journeyListCreator() throws FileNotFoundException, IOException {
+    	// Creates an ArrayList of ValidDestinations objects for later testing
+    	ValidDestReader initalDistDestTester = new ValidDestReader();
+    	ArrayList<ValidDestinations> distDestTester = initalDistDestTester.ValidDestList();
+    	// Creates an ArrayList of Taxi objects for later testing
+    	Taxi taxiTest = new Taxi("AFR1", "Doesntmatter");
+    	ArrayList<Taxi> driverTest = taxiTest.driverFinder();
+    	// Create the new TreeSet<Journey>(new expenseComparator())
     	TreeSet<Journey> journeyList = new TreeSet<Journey>(new expenseComparator());
 		// Initialize three buffered readers that read from three different files
     	BufferedReader buff2017 = null;
-		BufferedReader destbuff = null;
-		BufferedReader taxibuff = null;
 		// Initialize three different lists of strings for splitting the elements of each text file based on some string char
 		String data2017 [] = new String[3];
-		String destdata [] = new String[2];
-		String taxidata [] = new String[2];
 		// A try/catch block exists here to catch all potential errors in the reading of files and creation of Journey objects
 		try {
 			// Have the buffered readers start to read the txt files
 			buff2017 = new BufferedReader(new FileReader("2017_Journeys.txt"));
-			destbuff = new BufferedReader(new FileReader("destinations.txt"));
-			taxibuff = new BufferedReader(new FileReader("taxi_details.txt"));
 	    	String input2017 = buff2017.readLine();
-	    	String destinput = destbuff.readLine();
-	    	String taxiinput = taxibuff.readLine();
 	    	// Makes a while statement that operates as long as the readlines() methods produce non-empty, non-null lines
 	    	// (i.e. the while loop operates for as long as there's something for the buffered readers to read)
-	    	while(input2017 != null && input2017.isEmpty() != true
-	    			&& destinput != null && destinput.isEmpty() != true
-	    			&& destinput != null && destinput.isEmpty() != true)
+	    	while(input2017 != null && input2017.isEmpty() != true)
 	    		{
 	    		// The input lines are split on the basis of certain characters that the text files use to split up the fields within them
 	    		data2017 = input2017.split(",");
-	    		destdata = destinput.split(";");
-	    		taxidata = taxiinput.split(";");
 	    		// Parses the number of passengers to be a number so that we can pass it to a new Journey object
 	    		int passnum = Integer.parseInt(data2017[2]);
 	    		// Removes the "miles" word from the distance field in the destinations.txt file and parses distance as a double
 	    		// so it can be passed to a new Journey object
-	    		String milesraw = destdata[1].replaceAll("miles", "");
-	    		double miles = Double.parseDouble(milesraw.trim());
+	    		double dist = 0.0;
+	    		// Using the ArrayList<ValidDestinations> object we created before, tests to see if the destination
+	    		// of the data match up to our valid destination list, and then provides the distance for that destination using
+	    		// ValidDestinations.getDist() method
+	    		for (int i = 0; i < distDestTester.size(); i++){
+	    			boolean destTest = false;
+	    			destTest =	(distDestTester.get(i).getDest().toUpperCase()).equals(data2017[1].toUpperCase());
+	    			if (destTest == true) {
+	    				dist = distDestTester.get(i).getDist();
+	    			}
+	    		}
+	    		String driver = "";
+	    		for (int i = 0; i < driverTest.size(); i++){
+	    			boolean driverExists = false;
+	    			driverExists = (driverTest.get(i).getregNum().equals(data2017[0]));
+	    			if (driverExists == true) {
+	    				driver = driverTest.get(i).getdriverName();
+	    			}
+	    		}
 	    		// Creates a new Journey object and adds it to the TreeSet
-	    		Journey d = new Journey(data2017[0], taxidata[1], data2017[1], miles, passnum);
+	    		Journey d = new Journey(data2017[0], driver , data2017[1], dist, passnum);
 	    	    journeyList.add(d);
 	            // Reads the next line
 	    	    input2017 = buff2017.readLine();
-	            destinput = destbuff.readLine();
-	            taxiinput = taxibuff.readLine();
 	    		}
 	    // Catch blocks exist here to catch every potential error that could occur in the Journey creation process or in 
 	    // the reading process
@@ -71,8 +83,6 @@ public class JourneyList
 	    } finally  {
         	try{
         		buff2017.close();
-        		destbuff.close();
-        		taxibuff.close();
         	}
         	catch (IOException ioe) {
         		//don't do anything
@@ -100,7 +110,7 @@ public class JourneyList
     		// Takes the first (highest cost) entry in TreeSet and passes it to the printwriter, which prints it.
     		// After this is done the first entry is removed, which iterates us through the TreeSet
     		Journey current = jlist.first();
-    		print_line.printf("%s" + "%n", current.jlistString());
+    		print_line.printf("%s" + "%n", current.toString());
     		jlist.remove(current);
     	}
     	print_line.println();
@@ -109,7 +119,7 @@ public class JourneyList
 		// After this is done the last entry is removed, which iterates us through the TreeSet backwards
     	for (int i = 0; i < 5; i++){
     		Journey current = jlist.last();
-    		print_line.printf("%s" + "%n", current.jlistString());
+    		print_line.printf("%s" + "%n", current.toString());
     		jlist.remove(current);
     	}
     	// Closes the printwriter method when it's task is done
@@ -122,7 +132,7 @@ public class JourneyList
     public static void main(String[] args) throws IOException
     {
     	JourneyList test = new JourneyList();
-    	test.writeToFile("/home/ajh/test.txt");
+    	test.writeToFile("/home/ajh/tester.txt");
     }
     
 }
