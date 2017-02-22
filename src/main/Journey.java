@@ -33,7 +33,8 @@ public class Journey implements Comparable<Journey>
     	} catch (NumberFormatException e){
     		System.err.println("Improper Registration Format: Not exclusively numbers in " + regNum.substring(3, regNum.length()));
     	}
-        if (driverName != "") {
+        // Simple test to catch if driver name is empty
+    	if (driverName != "") {
         	this.driverName = driverName.trim();
         } else {
         	System.err.println("Driver Name is Empty");
@@ -162,19 +163,10 @@ public class Journey implements Comparable<Journey>
     
     public String toString()
     {
-        return String.format("%s ", regNum ) + String.format(" %s ", driverName) +
-                 String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
-                 String.format(" %d ", passNum ) + String.format(" %.2f", cost);
+        return String.format("Registration: %s   ", regNum ) + String.format("Driver: %s   ", driverName) +
+                 String.format("Destination: %s   ", destName.toUpperCase() ) + String.format("Distance: %.2f miles   ", dist ) +
+                 String.format(" Passengers: %d  ", passNum ) + String.format(" Cost: £%.2f", cost);
     }
     
-    /**
-     * @return A  string containing the details necessary for output in the JourneyList class.
-     * Note: This method have been extensively tested at the console level and does print exactly how we want
-     */
-    public String jlistString()
-    {
-    	return String.format("%s ", regNum ) +  String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
-                String.format(" %d Passengers  ", passNum ) + String.format("  £%.2f", cost);
-    }
 
 }

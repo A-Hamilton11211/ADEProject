@@ -4,14 +4,13 @@ import java.util.*;
 
 public class ValidDestReader 
 {
-	private ArrayList<ValidDestinations> entries;
 	
 	/**
      * This constructor creates an ArrayList of ValidDestinations objects and populates it with the entries present in destinations.txt
      */ 
-	public ValidDestReader() {
+	public ArrayList<ValidDestinations> ValidDestList() {
 			// Creates a new ArrayList<ValidDestinations> object
-			entries = new ArrayList<ValidDestinations>();
+		ArrayList<ValidDestinations> entries = new ArrayList<ValidDestinations>();
 			// Creates a buffered reader to read a file, and a String[] object to split the inputlines into its proper fields
 			BufferedReader buff = null;
 			String data [] = new String[2];
@@ -50,6 +49,7 @@ public class ValidDestReader
 	        		//don't do anything
 	        	}
 			}
+			return entries;
 		}
 	
 	/**
@@ -58,6 +58,10 @@ public class ValidDestReader
 	public static void main(String arg[])
 	{
 		ValidDestReader test = new ValidDestReader();
-		System.out.println(test.entries);
+		ArrayList<ValidDestinations> catcher = test.ValidDestList();
+		for (int i = 0; i < catcher.size(); i++){
+			System.out.println(catcher.get(i).getDest());
+		}
+		
 	}
 }
