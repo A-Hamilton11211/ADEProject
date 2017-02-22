@@ -1,3 +1,4 @@
+package src.main;
 public class Journey implements Comparable<Journey>
 {
 	private String regNum;
@@ -32,8 +33,17 @@ public class Journey implements Comparable<Journey>
     	} catch (NumberFormatException e){
     		System.err.println("Improper Registration Format: Not exclusively numbers in " + regNum.substring(3, regNum.length()));
     	}
-        this.driverName = driverName.trim();
-        this.destName = destName.trim();
+        // Simple test to catch if driver name is empty
+    	if (driverName != "") {
+        	this.driverName = driverName.trim();
+        } else {
+        	System.err.println("Driver Name is Empty");
+        }
+        if (destName != ""){
+        	this.destName = destName.trim();
+        } else {
+        	System.err.println("Destination Name is Empty");
+        }
         // if/else block ensures that distance is above 0, or throws an impossible distance exception
         if (dist > 0) {
         	this.dist = dist;
@@ -135,27 +145,28 @@ public class Journey implements Comparable<Journey>
 
     public int compareTo(Journey otherDetails)
     {
-        return regNum.compareTo(otherDetails.getReg());
+        int comp1 = Integer.parseInt(regNum.substring(3));
+        int comp2 = Integer.parseInt(otherDetails.getReg().substring(3));
+    	if (comp1 == comp2){
+    		return 0;
+    	} else if (comp1 > comp2) {
+    		return -1;
+    	} else {
+    		return 1;
+    	}
     }    
 
     /**
      * @return A  string containing all details.
+     * Note: This method have been extensively tested at the console level and does print exactly how we want
      */
     
     public String toString()
     {
-        return String.format("%s ", regNum ) + String.format(" %s ", driverName) +
-                 String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
-                 String.format(" %d ", passNum ) + String.format(" %.2f", cost);
+        return String.format("Registration: %s   ", regNum ) + String.format("Driver: %s   ", driverName) +
+                 String.format("Destination: %s   ", destName.toUpperCase() ) + String.format("Distance: %.2f miles   ", dist ) +
+                 String.format(" Passengers: %d  ", passNum ) + String.format(" Cost: £%.2f", cost);
     }
     
-    /**
-     * @return A  string containing the details necessary for output in the JourneyList class.
-     */
-    public String jlistString()
-    {
-    	return String.format("%s ", regNum ) +  String.format(" %s ", destName ) + String.format(" %.2f miles ", dist ) +
-                String.format(" %d Passengers  ", passNum ) + String.format("  £%.2f", cost);
-    }
 
 }
