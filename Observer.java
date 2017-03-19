@@ -2,5 +2,5 @@ package src.main;
 
 public interface Observer
 {
-  public void update();
+  public void update() throws InterruptedException;
 }

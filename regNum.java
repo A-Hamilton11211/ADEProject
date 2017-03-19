@@ -4,13 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class regNum implements Runnable, Subject{
+public class regNum implements Subject{
 	
 	private String registration;
 	private ArrayList<regNum> taxiQueue = new ArrayList<regNum>();
 	private List<Observer> registeredObservers = new LinkedList<Observer>();
 	
-	public regNum (Journey j){
+	public regNum (Journey j) throws FileNotFoundException, IOException{
 		this.registration = j.getReg();
 	}
 	
@@ -32,22 +32,10 @@ public class regNum implements Runnable, Subject{
 		taxiQueue.remove(0);
 	}
 	
-	@Override
-	public void run() {
+	public void makeQueue() throws FileNotFoundException, IOException{
 		for (int i = 0; i <= 10; i++){
-			try {
-				Thread.sleep(2000);
-				addQueue();
-				notifyObservers();
-			} catch (InterruptedException e){
-				System.out.println(e.getMessage());
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			addQueue();
 		}
-		
 	}
 
 	@Override
@@ -61,7 +49,7 @@ public class regNum implements Runnable, Subject{
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers() throws InterruptedException {
 		for (Observer obs: registeredObservers){
 			obs.update();
 		}

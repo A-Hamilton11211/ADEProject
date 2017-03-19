@@ -6,14 +6,14 @@ import java.util.*;
 
 import src.main.Observer;
 
-public class passGroup implements Runnable, Subject {
+public class passGroup implements Subject {
 	
 	private String destination;
 	private int passengers;
 	private ArrayList<passGroup> passGrpQueue = new ArrayList<passGroup>();
 	private List<Observer> registeredObservers = new LinkedList<Observer>();
 	
-	public passGroup (Journey j){
+	public passGroup (Journey j) throws FileNotFoundException, IOException{
 		this.destination = j.getDest();
 		this.passengers = j.getPass();
 	}
@@ -30,32 +30,20 @@ public class passGroup implements Runnable, Subject {
 		return passGrpQueue;
 	}
 	
-	public synchronized void addQueue() throws FileNotFoundException, IOException {
+	public void addQueue() throws FileNotFoundException, IOException {
 		JourneyList unimportant = new JourneyList();
 		passGroup next = unimportant.randomPassGroupGenerator();
 		passGrpQueue.add(next);
 	}
 	
-	public synchronized void decQueue() throws FileNotFoundException, IOException {
+	public void decQueue() throws FileNotFoundException, IOException {
 		passGrpQueue.remove(0);
 	}
-
-	@Override
-	public void run() {
+	
+	public void makeQueue() throws FileNotFoundException, IOException{
 		for (int i = 0; i <= 10; i++){
-			try {
-				Thread.sleep(2000);
-				addQueue();
-				notifyObservers();
-			} catch (InterruptedException e){
-				System.out.println(e.getMessage());
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			addQueue();
 		}
-		
 	}
 	
 	@Override
@@ -69,7 +57,7 @@ public class passGroup implements Runnable, Subject {
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers() throws InterruptedException {
 		for (Observer obs: registeredObservers){
 			obs.update();
 		}
