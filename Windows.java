@@ -12,7 +12,7 @@ public class Windows implements Observer, Runnable {
 	private regNum regFeeder;
 	private Boolean firstTrans = true;
 	private Boolean finished = false;
-	private KioskWindowsFrame queueFrame;
+	//private KioskWindowsFrame queueFrame;
 	private ArrayList<String> history = new ArrayList<String>();
 	
 	public Windows(passGroup pass, regNum reg){
@@ -27,9 +27,9 @@ public class Windows implements Observer, Runnable {
 		this.transaction = t;
 	}
 	
-	public void setF1(KioskWindowsFrame f1){
-		this.queueFrame = f1;
-	}
+	//public void setF1(KioskWindowsFrame f1){
+	//	this.queueFrame = f1;
+	//}
 	
 	public String getTrans(){
 		return transaction;
@@ -56,7 +56,7 @@ public class Windows implements Observer, Runnable {
 					String passNum = String.valueOf(passengers.getPassNumbers());
 					transaction = "Destination: " + passengers.getPassDest() + "\nTaxi: " + taxi.getRegistration() + "\nPassenger Number: " + passNum;
 					firstTrans = false;
-					queueFrame.setText(transaction);
+	//				queueFrame.setText(transaction);
 					passFeeder.decQueue();
 					regFeeder.decQueue();
 				} else if (passFeeder.getQueue().isEmpty() != true  && regFeeder.getQueue().isEmpty() != true && firstTrans == false){
@@ -69,7 +69,7 @@ public class Windows implements Observer, Runnable {
 					regNum taxi = regQueue.get(0);
 					String passNum = String.valueOf(passengers.getPassNumbers());
 					transaction = "Destination: " + passengers.getPassDest() + "\nTaxi: " + taxi.getRegistration() + "\nPassenger Number: " + passNum;
-					queueFrame.setText(transaction);
+	//				queueFrame.setText(transaction);
 					passFeeder.decQueue();
 					regFeeder.decQueue();
 				} else {
@@ -79,7 +79,7 @@ public class Windows implements Observer, Runnable {
 					history.add(transaction);
 					transaction = "Closed for the Day";
 					history.add(transaction);
-					queueFrame.setText(transaction);
+	//				queueFrame.setText(transaction);
 					passFeeder.removeObserver(this);
 					regFeeder.removeObserver(this);
 					finished = true;;
@@ -113,6 +113,7 @@ public class Windows implements Observer, Runnable {
 		r.makeQueue();
 		Windows w = new Windows(p,r);
 		w.run();
+		System.out.println(w.getHistory());
 	}
 }
 	
