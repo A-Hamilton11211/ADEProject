@@ -38,14 +38,13 @@ public class regNum implements Subject{
 		}
 	}
 	
-	public ArrayList<String> stringifyReg(){
-		ArrayList<String> regStringQ = new ArrayList<String>();
+	public String stringifyReg(){
+		String fin = "";
 		for (regNum indP: taxiQueue){
-			String reg = indP.getRegistration();
-			regStringQ.add("Registration: " + reg);
+			String reg = indP.getRegistration() + "\n";
+			fin = fin.concat(reg);
 		}
-		return regStringQ;
-		
+		return fin;
 	}
 
 	@Override

@@ -46,14 +46,15 @@ public class passGroup implements Subject {
 		}
 	}
 	
-	public ArrayList<String> stringifyPass(){
-		ArrayList<String> passStringQ = new ArrayList<String>();
+	public String stringifyPass(){
+		String fin = "";
 		for (passGroup indP: passGrpQueue){
 			String dest = indP.getPassDest();
 			String passNum = String.valueOf(indP.getPassNumbers());
-			passStringQ.add("Destination: " + dest + "; Passengers: " + passNum);
+			String output = "Destination: " + dest + "; Passengers: " + passNum + "\n";
+			fin = fin.concat(output);
 		}
-		return passStringQ;
+		return fin;
 		
 	}
 	
