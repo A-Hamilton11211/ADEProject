@@ -1,3 +1,4 @@
+package src.main;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,11 +17,19 @@ public KioskWindowsFrame(){
 		setupWindows();
 		
 	}
+	private regNum r1;
+	private passGroup p1;
+	private void setupPassReg(regNum f1,passGroup f2){
+		this.r1=f1;
+		this.p1=f2;
+	}
+
 	
 private void setupWindows(){
 	
 	//JPanel northPanel = new JPanel();
-	Window1 = new JTextArea(15,20);
+	Window1 = new JTextArea(600,200);
+	//Window1.setSize(40,40);
 	Window1.setFont(new Font (Font.MONOSPACED, Font.PLAIN,14));
 	Window1.setEditable(false);
 	W1scrollList = new JScrollPane(Window1);
