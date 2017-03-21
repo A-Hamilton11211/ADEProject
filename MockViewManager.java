@@ -1,33 +1,36 @@
+package src.main;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.*;
+
 
 public class MockViewManager {
 
-	public static void main(String [] args)
-	{
-		Places testlist = new Places();
-		testlist.Places2016Reader();
-		testlist.Places2017Reader();
-		testlist.SetupHelperSets();
-		
-		QueueLayoutFrame QLF = new QueueLayoutFrame(testlist);
-		QLF.pack();
-		QLF.setLocation(50,200);
-		QLF.setVisible(true);
-		
+
+	
+	void setupGUI() throws FileNotFoundException, IOException{
 		ControlButtonsFrame CBF = new ControlButtonsFrame();
-		CBF.setFrameF1(QLF);
 		CBF.setLocation(200,50);
 		CBF.pack();
 		CBF.setVisible(true);
-		
-		KioskWindowsFrame KWF = new KioskWindowsFrame();
-		CBF.setFrameF2(KWF);
-		KWF.pack();
-		KWF.setLocation(850,150);
-		KWF.setVisible(true);
-		
+	}
+	
+	public static void main(String [] args) throws FileNotFoundException, IOException
+	{
+		MockViewManager mock = new MockViewManager();
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		    	try {
+					mock.setupGUI();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    }
+		});
 	}
 	
 }
