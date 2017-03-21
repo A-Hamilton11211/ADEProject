@@ -46,6 +46,17 @@ public class passGroup implements Subject {
 		}
 	}
 	
+	public ArrayList<String> stringifyPass(){
+		ArrayList<String> passStringQ = new ArrayList<String>();
+		for (passGroup indP: passGrpQueue){
+			String dest = indP.getPassDest();
+			String passNum = String.valueOf(indP.getPassNumbers());
+			passStringQ.add("Destination: " + dest + "; Passengers: " + passNum);
+		}
+		return passStringQ;
+		
+	}
+	
 	@Override
 	public void registerObserver(Observer obs) {
 		registeredObservers.add(obs);	

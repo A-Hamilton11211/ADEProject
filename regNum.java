@@ -37,6 +37,16 @@ public class regNum implements Subject{
 			addQueue();
 		}
 	}
+	
+	public ArrayList<String> stringifyReg(){
+		ArrayList<String> regStringQ = new ArrayList<String>();
+		for (regNum indP: taxiQueue){
+			String reg = indP.getRegistration();
+			regStringQ.add("Registration: " + reg);
+		}
+		return regStringQ;
+		
+	}
 
 	@Override
 	public void registerObserver(Observer obs) {

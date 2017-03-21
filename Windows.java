@@ -62,7 +62,8 @@ public class Windows implements Observer, Runnable {
 					passFeeder.decQueue();
 					regFeeder.decQueue();
 					finished = true;
-					System.out.println("1");
+					System.out.println(passFeeder.stringifyPass());
+					System.out.println(regFeeder.stringifyReg());
 				} else if (passFeeder.getQueue().isEmpty() != true  && regFeeder.getQueue().isEmpty() != true && firstTrans == false){
 					Thread.sleep(sleeptimer);
 					ArrayList<passGroup> passQueue = passFeeder.getQueue();
@@ -77,11 +78,11 @@ public class Windows implements Observer, Runnable {
 					passFeeder.decQueue();
 					regFeeder.decQueue();
 					finished = true;
-					System.out.println("2");
+					System.out.println(passFeeder.stringifyPass());
+					System.out.println(regFeeder.stringifyReg());
 				} else {
 					// This is the point when either all the taxis have left, or all the passengers have been served.  At this point, the 
 					// log class will write all of the events of the simulation (which are kept in history) to the file
-					System.out.println("3");
 					Thread.sleep(sleeptimer);
 					history.add(transaction);
 					transaction = "Closed for the Day";
@@ -91,7 +92,6 @@ public class Windows implements Observer, Runnable {
 					regFeeder.removeObserver(this);
 					finished = true;
 					last = true;
-					System.out.println("3");
 					// log.writeToFile(getHistory());
 				}
 				
